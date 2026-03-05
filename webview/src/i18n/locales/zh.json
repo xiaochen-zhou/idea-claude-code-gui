@@ -375,6 +375,49 @@
       "localProviderName": "本地 settings.json",
       "localProviderDescription": "直接使用 ~/.claude/settings.json 配置",
       "localProviderHelp": "使用本地供应商模式时：\n• 插件不会修改您的 ~/.claude/settings.json 文件\n• 您需要手动管理配置\n• 确保文件存在且包含有效的 JSON\n• 适合喜欢手动控制的高级用户",
+      "subscriptionTutorial": {
+        "entry": "订阅制账号教程",
+        "dialogTitle": "如何使用订阅制账号",
+        "tabAriaLabel": "订阅制账号教程标签",
+        "tabs": {
+          "claude": "Claude订阅制",
+          "codex": "Codex订阅制"
+        },
+        "code": {
+          "copy": "复制代码",
+          "copied": "已复制"
+        },
+        "providers": {
+          "claude": {
+            "title": "Claude Code 订阅制账号使用方式",
+            "item1": "首先在终端claude code cli 上登录成功 claude code 订阅制账号，然后可以正常在终端提问",
+            "item2": "确保 ~/.claude/settings.json 文件  .env 文件内容为空",
+            "item3": "重启IDEA，就可以正常提问了",
+            "emptyConfigCodeLabel": "~/.claude/settings.json",
+            "emptyConfigCode": "{\n  \"env\": {\n  }\n}",
+            "noteTitle": "特殊情况备注：",
+            "note1": "如果已经进行上述操作，但是本插件还是无法回复，可以将 ~/.claude/settings.json .env 内容改为：",
+            "proxyConfigCodeLabel": "~/.claude/settings.json",
+            "proxyConfigCode": "{\n  \"env\": {\n    \"HTTP_PROXY\": \"http://127.0.0.1:7897\",\n    \"HTTPS_PROXY\": \"http://127.0.0.1:7897\"\n  }\n}",
+            "issuePrefix": "如果还是不行，可以去GitHub留言排查：",
+            "issueUrl": "https://github.com/zhukunpenglinyutong/idea-claude-code-gui/issues"
+          },
+          "codex": {
+            "title": "Codex 订阅制账号使用方式",
+            "item1": "在终端 Codex CLI 运行 codex login 登录成功之后，可以正常在终端提问",
+            "item2": "重启 IDEA",
+            "item3": "即可正常对话",
+            "emptyConfigCodeLabel": "",
+            "emptyConfigCode": "",
+            "noteTitle": "",
+            "note1": "",
+            "proxyConfigCodeLabel": "",
+            "proxyConfigCode": "",
+            "issuePrefix": "如果还是不行，可以去GitHub留言排查：",
+            "issueUrl": "https://github.com/zhukunpenglinyutong/idea-claude-code-gui/issues"
+          }
+        }
+      },
       "importDialog": {
         "title": "导入 cc-switch 配置",
         "summary": "共识别到 {{total}} 个配置，其中",
