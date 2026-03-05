@@ -13,6 +13,50 @@ export interface ChangelogEntry {
 
 export const CHANGELOG_DATA: ChangelogEntry[] = [
   {
+    version: '0.2.6',
+    date: '2026-03-05',
+    content: {
+      en: `✨ Features
+- Support pasting clipboard images in chat input: convert clipboard image data to base64 PNG, dispatch to webview and add as attachment
+- Add subscription tutorial dialog for Claude and Codex providers: tabbed step-by-step instructions with code block copy, i18n for 8 languages
+- Align slash command scanning with CLI behavior: plugin namespace prefixing, recursive directory scanning with SKILL.md detection, marketplace manifest fallback (#579) #gadfly3173
+- Add configurable "play sound only when IDE unfocused" setting (#583) #PaulGiletich
+
+🐛 Fixes
+- Gate Write tool with permission check in plan mode: add Write to permission check branch, add findProjectByPath fallback and retry logic (#580) #gadfly3173
+- Align token usage display with CLI behavior: reset per-turn accumulator on message_start, emit final usage before STREAM_END, show token info in status bar (#578) #gadfly3173
+- Fix token usage display in streaming and non-streaming modes: fix EDT violation, avoid duplicate updates, add monotonic increase check
+- Offload MCP server I/O to background threads: CompletableFuture.runAsync, 5-second timeout for command availability check
+- Harden plugin command scanning with depth limit and path safety
+- Address code review issues: GSON encoding for base64 JS injection prevention, fix i18n condition checks, replace hardcoded colors with theme variables
+- Normalize sound config response format and replace inline style with CSS Module class
+
+🔧 Improvements
+- Refactor tool block collapse UI: all tools with params collapsible, chevron icon with CSS accordion animation
+- Add CSS variables for notice-box colors with dark/light theme support, responsive layout for usage tabs
+- Fix CSS class naming collision in usage stats, change default date range from 30d to 7d`,
+      zh: `✨ Features
+- 支持在聊天输入框粘贴剪贴板图片：剪贴板图片数据转换为 base64 PNG，分发到 webview 作为附件
+- 新增 Claude 和 Codex 订阅教程对话框：分标签页操作说明，代码块复制，8 种语言国际化
+- 对齐斜杠命令扫描与 CLI 行为：插件命名空间前缀、递归目录扫描支持 SKILL.md 检测、市场清单回退 (#579) #gadfly3173
+- 新增 "仅在 IDE 失焦时播放提示音" 配置项 (#583) #PaulGiletich
+
+🐛 Fixes
+- 修复 Plan 模式下 Write 工具权限检查：将 Write 加入权限检查分支，添加 findProjectByPath 回退和重试逻辑 (#580) #gadfly3173
+- 修复 Token 用量显示对齐 CLI 行为：message_start 时重置累计器，STREAM_END 前发送最终用量，状态栏显示 Token 信息 (#578) #gadfly3173
+- 修复流式和非流式模式下 Token 用量显示：修复 EDT 线程违规，避免重复更新，添加单调递增检查
+- MCP 服务器 I/O 操作移至后台线程：CompletableFuture.runAsync，命令检查添加 5 秒超时
+- 加固插件命令扫描安全：深度限制和路径安全防护
+- 修复代码审查中安全和质量问题：GSON 编码防 JS 注入，修复 i18n 条件检查，硬编码颜色替换为主题变量
+- 规范化声音配置响应格式，内联样式替换为 CSS Module 类
+
+🔧 Improvements
+- 重构工具块折叠 UI：所有含参数的工具可折叠，箭头图标和 CSS 手风琴动画
+- 为 notice-box 颜色添加 CSS 变量，支持深色/浅色主题，窄视口响应式布局
+- 修复使用统计 CSS 类名冲突，默认日期范围从 30 天改为 7 天`,
+    },
+  },
+  {
     version: '0.2.5',
     date: '2026-03-04',
     content: {
