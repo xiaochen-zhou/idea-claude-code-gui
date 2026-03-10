@@ -500,6 +500,10 @@ public class CodemossSettingsService {
         return providerManager.saveProviders(providers);
     }
 
+    public void saveProviderOrder(List<String> orderedIds) throws IOException {
+        providerManager.saveProviderOrder(orderedIds);
+    }
+
     public boolean isLocalProviderActive() {
         return providerManager.isLocalProviderActive();
     }
@@ -837,5 +841,9 @@ public class CodemossSettingsService {
 
     public int saveCodexProviders(List<JsonObject> providers) throws IOException {
         return codexProviderManager.saveProviders(providers);
+    }
+
+    public void saveCodexProviderOrder(List<String> orderedIds) throws IOException {
+        codexProviderManager.saveProviderOrder(orderedIds);
     }
 }
