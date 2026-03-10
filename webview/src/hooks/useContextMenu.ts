@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import { sendToJava } from '../utils/bridge.js';
 
@@ -7,8 +7,6 @@ interface ContextMenuState {
   x: number;
   y: number;
   hasSelection: boolean;
-  selectionSource: 'none' | 'text' | 'fileTag';
-  targetFileTag: HTMLElement | null;
   savedRange: Range | null;
   selectedText: string;
 }
@@ -38,7 +36,7 @@ function placeCursorAfterRemoval(
   } else {
     range.selectNodeContents(editable);
   }
-  range.collapse(true);
+  range.collapse(false);
   selection.removeAllRanges();
   selection.addRange(range);
 }
@@ -56,8 +54,9 @@ function restoreRange(range: Range | null): void {
 
 export function useContextMenu() {
   const [state, setState] = useState<ContextMenuState>({
-    visible: false, x: 0, y: 0, hasSelection: false, selectionSource: 'none', targetFileTag: null, savedRange: null, selectedText: '',
+    visible: false, x: 0, y: 0, hasSelection: false, savedRange: null, selectedText: '',
   });
+  const targetFileTagRef = useRef<HTMLElement | null>(null);
 
   const open = useCallback((e: ReactMouseEvent) => {
     e.preventDefault();
@@ -65,22 +64,18 @@ export function useContextMenu() {
     const textSelection = sel?.toString() ?? '';
     const fileTag = (e.target as HTMLElement | null)?.closest('.file-tag') as HTMLElement | null;
     const fileTagPath = fileTag?.getAttribute('data-file-path')?.trim() ?? '';
-    // When right-clicking on a file tag, it is allowed to copy its full @ pathLx-Ly reference instead of misjudging as "no selection".
+    // When right-clicking on a file tag, copy its full @path reference instead of misjudging as "no selection".
     const selectedText = textSelection.trim().length > 0
       ? textSelection
       : (fileTagPath ? `@${fileTagPath}` : '');
-    const selectionSource: ContextMenuState['selectionSource'] = textSelection.trim().length > 0
-      ? 'text'
-      : (fileTagPath ? 'fileTag' : 'none');
     const hasSelection = selectedText.trim().length > 0;
     const savedRange = sel && sel.rangeCount > 0 ? sel.getRangeAt(0).cloneRange() : null;
+    targetFileTagRef.current = fileTag;
     setState({
       visible: true,
       x: e.clientX,
       y: e.clientY,
       hasSelection,
-      selectionSource,
-      targetFileTag: fileTag,
       savedRange,
       selectedText,
     });
@@ -90,7 +85,7 @@ export function useContextMenu() {
     setState(prev => ({ ...prev, visible: false }));
   }, []);
 
-  return { ...state, open, close };
+  return { ...state, open, close, targetFileTag: targetFileTagRef.current };
 }
 
 /** Copy saved selection text to clipboard via Java bridge */
